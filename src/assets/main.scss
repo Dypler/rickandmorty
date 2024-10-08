@@ -3,7 +3,10 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+body {
+  overflow-y: scroll;
 
+}
 .container {
   position: relative;
   width: 100%;

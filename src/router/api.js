@@ -2,45 +2,54 @@ import axios from 'axios';
 
 const BASE_URL = 'https://rickandmortyapi.com/api';
 
-// Загрузка персонажей по страницам (с учетом лимита)
-export const fetchAllCharacters = async (page = 1, limit = 20) => {
+// Fetch all characters by loading all pages
+export const fetchAllCharacters = async () => {
   try {
-    const response = await axios.get(`${BASE_URL}/character?page=${page}`);
-    return response.data.results.slice(0, limit); // Возвращаем только заданное количество элементов
+    let characters = [];
+    let nextPage = `${BASE_URL}/character`;
+
+    // Load all pages
+    while (nextPage) {
+      const response = await axios.get(nextPage);
+      characters = characters.concat(response.data.results);
+      nextPage = response.data.info.next; // Get link to next page, if available
+    }
+
+    return characters;
   } catch (error) {
-    console.error('Ошибка при загрузке всех персонажей:', error);
+    console.error('Error fetching all characters:', error);
     throw error;
   }
 };
 
-// Загрузка всех страниц локаций
+// Fetch all locations by loading all pages
 export const fetchAllLocations = async () => {
   try {
     let locations = [];
     let nextPage = `${BASE_URL}/location`;
 
-    // Цикл для загрузки всех страниц
+    // Load all pages
     while (nextPage) {
       const response = await axios.get(nextPage);
       locations = locations.concat(response.data.results);
-      nextPage = response.data.info.next; // Получаем ссылку на следующую страницу, если она есть
+      nextPage = response.data.info.next; // Get link to next page, if available
     }
 
     return locations;
   } catch (error) {
-    console.error('Ошибка при загрузке всех локаций:', error);
+    console.error('Error fetching all locations:', error);
     throw error;
   }
 };
 
-// Загрузка персонажей по списку резидентов (URL)
+// Fetch characters by list of resident URLs
 export const fetchResidents = async (residentUrls) => {
   try {
     const requests = residentUrls.map((url) => axios.get(url));
     const responses = await Promise.all(requests);
     return responses.map((response) => response.data);
   } catch (error) {
-    console.error('Ошибка при загрузке резидентов:', error);
+    console.error('Error fetching residents:', error);
     throw error;
   }
 };
