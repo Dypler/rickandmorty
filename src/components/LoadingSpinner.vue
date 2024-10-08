@@ -1,12 +1,12 @@
 <template>
-    <div class="loading-spinner">
+    <div class="loading__spinner">
       Загружаем...
       <img src="/pickle.png" alt="Loading..." class="loading-image" />
     </div>
   </template>
   
   <style scoped>
-  .loading-spinner {
+  .loading__spinner {
     text-align: center;
     font-size: 20px;
     margin-top: 20px;

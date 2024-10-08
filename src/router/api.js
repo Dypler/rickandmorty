@@ -2,47 +2,36 @@ import axios from 'axios';
 
 const BASE_URL = 'https://rickandmortyapi.com/api';
 
-// Fetch all characters by loading all pages
+// Универсальная функция для получения всех данных с нескольких страниц
+const fetchAllData = async (endpoint) => {
+  try {
+    let results = [];
+    let nextPage = `${BASE_URL}/${endpoint}`;
+
+    while (nextPage) {
+      const response = await axios.get(nextPage);
+      results = results.concat(response.data.results);
+      nextPage = response.data.info.next; // Устанавливаем ссылку на следующую страницу
+    }
+
+    return results;
+  } catch (error) {
+    console.error(`Error fetching ${endpoint}:`, error);
+    throw error;
+  }
+};
+
+// Функция для получения всех персонажей
 export const fetchAllCharacters = async () => {
-  try {
-    let characters = [];
-    let nextPage = `${BASE_URL}/character`;
-
-    // Load all pages
-    while (nextPage) {
-      const response = await axios.get(nextPage);
-      characters = characters.concat(response.data.results);
-      nextPage = response.data.info.next; // Get link to next page, if available
-    }
-
-    return characters;
-  } catch (error) {
-    console.error('Error fetching all characters:', error);
-    throw error;
-  }
+  return fetchAllData('character');
 };
 
-// Fetch all locations by loading all pages
+// Функция для получения всех локаций
 export const fetchAllLocations = async () => {
-  try {
-    let locations = [];
-    let nextPage = `${BASE_URL}/location`;
-
-    // Load all pages
-    while (nextPage) {
-      const response = await axios.get(nextPage);
-      locations = locations.concat(response.data.results);
-      nextPage = response.data.info.next; // Get link to next page, if available
-    }
-
-    return locations;
-  } catch (error) {
-    console.error('Error fetching all locations:', error);
-    throw error;
-  }
+  return fetchAllData('location');
 };
 
-// Fetch characters by list of resident URLs
+// Функция для получения информации о жителях (резидентам)
 export const fetchResidents = async (residentUrls) => {
   try {
     const requests = residentUrls.map((url) => axios.get(url));

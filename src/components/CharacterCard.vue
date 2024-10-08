@@ -1,12 +1,10 @@
 <script setup>
 import { defineProps } from 'vue';
-
 // Получаем данные персонажа через пропсы
 const props = defineProps({
   character: Object
 });
 </script>
-
 <template>
   <div class="card ">
     <img :src="props.character.image" :alt="props.character.name" />
@@ -14,7 +12,6 @@ const props = defineProps({
     <p>{{ props.character.location.name }}</p>
   </div>
 </template>
-
 <style scoped lang="scss">
 .card {
   cursor: pointer;
@@ -40,5 +37,4 @@ const props = defineProps({
     transition: all 0.3s ease-in-out;
   }
 }
-
 </style>
