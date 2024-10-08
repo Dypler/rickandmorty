@@ -53,18 +53,26 @@ watch([name, location, searchType], () => {
   border: 2px solid #3C3E44;
   border-radius: 10px;
   padding: 10px;
+  font-family: 'Courier New', Courier, monospace;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease;
+  height: 44px; 
 
   &:focus {
     outline: none;
     border-color: #ffcc00;
     box-shadow: 0 0 10px #ffcc00;
   }
+
+  @media screen and (max-width: 768px) {
+    font-size: 16px;
+  }
 }
+
 
 /* Стили input */
 .styled-input {
+  height: 44px; 
   background-color: #00B5CC;
   color: #fff;
   border: 2px solid #3C3E44;
@@ -82,9 +90,11 @@ watch([name, location, searchType], () => {
 
   /* Изменение цвета текста placeholder */
   &::placeholder {
-    color: lighten(#3C3E44, 30%);
+    color:#3C3E44;
 
   }
+    /* Минимальный размер шрифта для предотвращения зума на iOS */
+
 }
 
 @media (max-width: 768px) {

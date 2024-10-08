@@ -14,3 +14,8 @@ body {
   margin: 0 auto;
   padding: 0 16px;
 }
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  select:focus, textarea:focus, input:focus {
+          font-size: 16px;
+      }
+  }

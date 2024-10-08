@@ -13,7 +13,7 @@ const [parent] = useAutoAnimate();
 </script>
 
 <template>
-  <div class="md:mt-[120px] mt-[120px] grid gap-4 xl:grid-cols-5 sm:grid-cols-3 grid-cols-2" ref="parent">
+  <div class="mt-[60px] grid gap-4 xl:grid-cols-5 sm:grid-cols-3 grid-cols-2" ref="parent">
     <CharacterCard
       v-for="character in characters"
       :key="character.id"
